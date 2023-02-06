@@ -9,19 +9,23 @@ class Post(BaseModel):
 
 app = FastAPI()
 
+db = [10]
 
-@app.get("/")
-async def root():
+
+@app.get("/test/{id}")
+async def root(id: int):
+    print(id)
     return {"message": "Hellow Worlds"}
 
 
 @app.post("/")
 async def root(payload: Post):
-    print(payload)
-    return {"message": "Hellow Worlds"}
-
+    db.append(int(payload.test))
+    return {"message": db}
 
 # don`t know why we are passing this Body(...), the (...) makes no sense right now
+
+
 @app.post("/another-post")
 async def root(payload: Post = Body(...)):
     print(payload)
