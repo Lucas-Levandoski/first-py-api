@@ -24,7 +24,7 @@ def root(id: int, response: Response):
         # return {"message": "not found"}
 
 
-@app.post("/")
+@app.post("/", status_code=status.HTTP_201_CREATED)
 async def root(payload: Post):
     db.append(int(payload.test))
     return {"message": db}
