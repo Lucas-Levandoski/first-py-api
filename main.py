@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.params import Body
 from pydantic import BaseModel
 
@@ -13,9 +13,13 @@ db = [10]
 
 
 @app.get("/test/{id}")
-async def root(id: int):
-    print(id)
-    return {"message": "Hellow Worlds"}
+def root(id: int, response: Response):
+
+    try:
+        return {"message": db[id]}
+    except:
+        response.status_code = 404
+        return {"message": "not found"}
 
 
 @app.post("/")
