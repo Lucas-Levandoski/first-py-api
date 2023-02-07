@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, HTTPException, status
 from fastapi.params import Body
 from pydantic import BaseModel
 
@@ -18,8 +18,10 @@ def root(id: int, response: Response):
     try:
         return {"message": db[id]}
     except:
-        response.status_code = 404
-        return {"message": "not found"}
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="not found")
+        # response.status_code = 404
+        # return {"message": "not found"}
 
 
 @app.post("/")
