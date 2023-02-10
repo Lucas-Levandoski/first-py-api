@@ -36,3 +36,8 @@ async def root(payload: Post):
 async def root(payload: Post = Body(...)):
     print(payload)
     return {"message": "Hellow Worlds"}
+
+
+@app.delete("/delete/{id}")
+async def root(id: int):
+    db.pop(id)
